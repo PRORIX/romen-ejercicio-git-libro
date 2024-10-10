@@ -1,1 +1,2 @@
 Indice de los cápitulos, con conceptos avanzados de git
+Indice de los capitulos, con conceptos avanzados de git
