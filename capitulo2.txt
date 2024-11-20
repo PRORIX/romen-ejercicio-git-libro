@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 "Este es el contenido en la rama main." 
+=======
+"Este es el contenido en la rama nueva-funcionalidad." 
+>>>>>>> nueva-funcionalidad
