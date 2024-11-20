@@ -279,3 +279,4 @@ bae2@jpexposito-VirtualBox:~/Escritorio/Repositorios/romen-ejercicio-git-libro$ 
 * 192caf3 Añadido capítulo 2.
 :
 ```
+"Este es el proyecto donde gestionamos m�ltiples ramas con Git." 
