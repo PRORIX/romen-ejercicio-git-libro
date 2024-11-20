@@ -279,4 +279,379 @@ bae2@jpexposito-VirtualBox:~/Escritorio/Repositorios/romen-ejercicio-git-libro$ 
 * 192caf3 Añadido capítulo 2.
 :
 ```
-"Este es el proyecto donde gestionamos m�ltiples ramas con Git." 
+
+# Trabajando con tags, merge entre ramas y reset
+
+## Ejercicio 1
+### Creamos una nueva etiqueta, la empujamos y mostramos todas las etiquetas
+
+```bash
+C:\Users\Usuario\romen-ejercicio-git-libro>git tag 1.0.1
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git push origin --tags
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+To https://github.com/PRORIX/romen-ejercicio-git-libro
+ * [new tag]         1.0.1 -> 1.0.1
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git tag
+1.0.0
+1.0.1
+
+C:\Users\Usuario\romen-ejercicio-git-libro>
+
+```
+
+## Ejercicio 2
+### Hacemos un cambio sencillo, revertimos el cambio y mostramos el resultado
+
+```bash
+
+C:\Users\Usuario\romen-ejercicio-git-libro>notepad capitulo1.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo1.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Agregado el cambio sencillo"
+[main 489fa11] Agregado el cambio sencillo
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 capitulo1.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git revert
+usage: git revert [--[no-]edit] [-n] [-m <parent-number>] [-s] [-S[<keyid>]] <commit>...
+   or: git revert (--continue | --skip | --abort | --quit)
+
+    --quit                end revert or cherry-pick sequence
+    --continue            resume revert or cherry-pick sequence
+    --abort               cancel revert or cherry-pick sequence
+    --skip                skip current commit and continue
+    --[no-]cleanup <mode> how to strip spaces and #comments from message
+    -n, --no-commit       don't automatically commit
+    --commit              opposite of --no-commit
+    -e, --[no-]edit       edit the commit message
+    -s, --[no-]signoff    add a Signed-off-by trailer
+    -m, --[no-]mainline <parent-number>
+                          select mainline parent
+    --[no-]rerere-autoupdate
+                          update the index with reused conflict resolution if possible
+    --[no-]strategy <strategy>
+                          merge strategy
+    -X, --[no-]strategy-option <option>
+                          option for merge strategy
+    -S, --[no-]gpg-sign[=<key-id>]
+                          GPG sign commit
+    --[no-]reference      use the 'reference' format to refer to commits
+
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git log
+commit 489fa11c914a9f34398fd4b5d8b338d0fa24bbe7 (HEAD -> main)
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Wed Nov 20 22:47:02 2024 +0000
+
+    Agregado el cambio sencillo
+
+commit a12989ee6796ebd8fb10374c441ac956a96a0fa1 (tag: 1.0.1, origin/main, origin/HEAD)
+Author: Romén Gilberto García Gómez <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:53:34 2024 +0100
+
+    README.md
+
+commit 22486f830f8e4d2f28e8be6c9903baf91e459e5a (tag: 1.0.0)
+Merge: 4748a66 6f9db3b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:48:55 2024 +0100
+
+    Solucionado conflicto bibliografía.
+
+commit 4748a66765431e7118598582632866620049cb94
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:47:15 2024 +0100
+
+    Añadida nueva referencia bibliográfica.
+
+commit 6f9db3bd23af96770b2ff8c2459db345e99735b8
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:41:59 2024 +0100
+
+    Añadida nueva referencia bibliográfica.
+
+commit cbe775115d547e5ca59c802e3278a327ff95088b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:01:40 2024 +0100
+
+    Añadido capítulo 4.
+
+commit 6f947d0e9037951d8d62ee56264cf3654079c29b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:43:47 2024 +0100
+
+    Se crea el indice
+
+commit da4a11809221453ecfec6c0d843c9e63ce486a27
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:37:22 2024 +0100
+
+    Añadido capítulo 3.
+
+commit 192caf3615a3e29f0d366d97997b9b6a40014fbd
+
+```
+
+## Ejercicio 5
+### Creamos una nueva rama con un cambio nuevo, hacemos un commit y lo aplicamos, luego mostramos el historial de la rama main
+
+```bash
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout -b nueva-funcionalidad
+Switched to a new branch 'nueva-funcionalidad'
+
+C:\Users\Usuario\romen-ejercicio-git-libro>echo "En este capítulo veremos cómo gestionar múltiples ramas en Git." > capitulo5.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo5.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Añadido capitulo5.txt con información sobre ramas en Git"
+[nueva-funcionalidad 90b28f0] Añadido capitulo5.txt con información sobre ramas en Git
+ 1 file changed, 1 insertion(+)
+ create mode 100644 capitulo5.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git cherry-pick 1234abcd5678efgh
+fatal: bad revision '1234abcd5678efgh'
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git log
+commit 489fa11c914a9f34398fd4b5d8b338d0fa24bbe7 (HEAD -> main)
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Wed Nov 20 22:47:02 2024 +0000
+
+    Agregado el cambio sencillo
+
+commit a12989ee6796ebd8fb10374c441ac956a96a0fa1 (tag: 1.0.1, origin/main, origin/HEAD)
+Author: Romén Gilberto García Gómez <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:53:34 2024 +0100
+
+    README.md
+
+commit 22486f830f8e4d2f28e8be6c9903baf91e459e5a (tag: 1.0.0)
+Merge: 4748a66 6f9db3b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:48:55 2024 +0100
+
+    Solucionado conflicto bibliografía.
+
+commit 4748a66765431e7118598582632866620049cb94
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:47:15 2024 +0100
+
+    Añadida nueva referencia bibliográfica.
+
+commit 6f9db3bd23af96770b2ff8c2459db345e99735b8
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:41:59 2024 +0100
+
+    Añadida nueva referencia bibliográfica.
+
+commit cbe775115d547e5ca59c802e3278a327ff95088b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 19:01:40 2024 +0100
+
+    Añadido capítulo 4.
+
+commit 6f947d0e9037951d8d62ee56264cf3654079c29b
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:43:47 2024 +0100
+
+    Se crea el indice
+
+commit da4a11809221453ecfec6c0d843c9e63ce486a27
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:37:22 2024 +0100
+
+    Añadido capítulo 3.
+
+commit 192caf3615a3e29f0d366d97997b9b6a40014fbd
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:31:28 2024 +0100
+
+    Añadido capítulo 2.
+
+commit 51094a24170be1bfdc4ccf65ca98c4da5183eaa4
+Author: PRORIX <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:21:33 2024 +0100
+
+    Añadido capítulo 1.
+
+commit e269d4abed3e98ffae77eb490927d323eabdb54b
+Author: Romén Gilberto García Gómez <romengilberto08@gmail.com>
+Date:   Thu Oct 10 18:02:25 2024 +0100
+
+    Initial commit
+(END)
+
+```
+
+## Ejercicio 4
+### Hacemos un cambio en la rama main, comparamos los cambios.
+
+```bash
+
+C:\Users\Usuario\romen-ejercicio-git-libro>echo "Este es el proyecto donde gestionamos múltiples ramas con Git." >> README.md
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add README.md
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Añadida una breve descripción en README.md"
+[main eece686] Añadida una breve descripción en README.md
+ 1 file changed, 1 insertion(+)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git diff main..nueva-funcionalidad
+diff --git a/README.md b/README.md
+index d4476c2..2626a2b 100644
+--- a/README.md
++++ b/README.md
+@@ -279,4 +279,3 @@ bae2@jpexposito-VirtualBox:~/Escritorio/Repositorios/romen-ejercicio-git-libro$
+ * 192caf3 Añadido capítulo 2.
+ :
+ ```
+-"Este es el proyecto donde gestionamos m<A3>ltiples ramas con Git."
+diff --git a/capitulo5.txt b/capitulo5.txt
+new file mode 100644
+index 0000000..7a9a46e
+--- /dev/null
++++ b/capitulo5.txt
+@@ -0,0 +1 @@
++"En este cap<A1>tulo veremos c<A2>mo gestionar m<A3>ltiples ramas en Git."
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git diff nueva-funcionalidad..main
+diff --git a/README.md b/README.md
+index 2626a2b..d4476c2 100644
+--- a/README.md
++++ b/README.md
+@@ -279,3 +279,4 @@ bae2@jpexposito-VirtualBox:~/Escritorio/Repositorios/romen-ejercicio-git-libro$
+ * 192caf3 Añadido capítulo 2.
+ :
+ ```
++"Este es el proyecto donde gestionamos m<A3>ltiples ramas con Git."
+diff --git a/capitulo5.txt b/capitulo5.txt
+deleted file mode 100644
+index 7a9a46e..0000000
+--- a/capitulo5.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-"En este cap<A1>tulo veremos c<A2>mo gestionar m<A3>ltiples ramas en Git."
+
+```
+
+## Ejercicio 5
+### Creamos un conflicto de fusion, hacemos un merge y realizamos un commit una vez resuelto
+
+```hash
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout main
+Already on 'main'
+Your branch is ahead of 'origin/main' by 2 commits.
+  (use "git push" to publish your local commits)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>echo "Este es el contenido en la rama main." > capitulo2.txt
+
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Modificado capitulo2.txt en main"
+[main 4a9f933] Modificado capitulo2.txt en main
+ 1 file changed, 1 insertion(+)
+ create mode 100644 capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout nueva-funcionalidad
+Switched to branch 'nueva-funcionalidad'
+
+C:\Users\Usuario\romen-ejercicio-git-libro>echo "Este es el contenido en la rama nueva-funcionalidad." > capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Modificado capitulo2.txt en nueva-funcionalidad"
+[nueva-funcionalidad 4277d04] Modificado capitulo2.txt en nueva-funcionalidad
+ 1 file changed, 1 insertion(+)
+ create mode 100644 capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git merge nueva-funcionalidad
+Auto-merging capitulo2.txt
+CONFLICT (add/add): Merge conflict in capitulo2.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Resuelto conflicto de fusión en capitulo2.txt"
+[main 15c90a7] Resuelto conflicto de fusión en capitulo2.txt
+
+```
+
+## Ejercicio 6
+### Realizamos un merge de la nueva rama en main, y hacemos revert
+
+```hash
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 3 commits.
+  (use "git push" to publish your local commits)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git merge nueva-funcionalidad
+Auto-merging capitulo2.txt
+CONFLICT (add/add): Merge conflict in capitulo2.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git add capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Resuelto conflicto de fusión en capitulo2.txt"
+[main 15c90a7] Resuelto conflicto de fusión en capitulo2.txt
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git checkout main
+Already on 'main'
+Your branch is ahead of 'origin/main' by 6 commits.
+  (use "git push" to publish your local commits)
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git merge nueva-funcionalidad
+Already up to date.
+
+```
+
+## Ejercicio 7
+### Eliminar una etiqueta
+
+```hash
+C:\Users\Usuario\romen-ejercicio-git-libro>git tag -d
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git push origin :refs/tags/<1.0.0>
+La sintaxis del comando no es correcta.
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git push origin
+Enumerating objects: 20, done.
+Counting objects: 100% (20/20), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (18/18), 1.94 KiB | 991.00 KiB/s, done.
+Total 18 (delta 6), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (6/6), completed with 1 local object.
+To https://github.com/PRORIX/romen-ejercicio-git-libro
+   a12989e..15c90a7  main -> main
+
+```
+
+## Ejercicio 8
+### Haz un commit en la rama main y luego restablece el estado del repositorio al commit anterior utilizando git reset --hard.
+
+```hash
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git commit -m "Ejercicio terminado"
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\Users\Usuario\romen-ejercicio-git-libro>git reset --hard
+HEAD is now at 15c90a7 Resuelto conflicto de fusión en capitulo2.txt
+
+```
